@@ -1,9 +1,7 @@
 'use client'
 
 import {
-  Bell,
   Clock3,
-  Megaphone,
   Ticket,
   Users2,
 } from 'lucide-react'
@@ -11,7 +9,6 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAsync } from '@/hooks/use-async'
 import { getQueueStats, listQueueTokens } from '@/services/queue-service'
-import { SERVICE_LABELS } from '@/lib/services-config'
 
 const TIMINGS = [
   { day: 'Mon – Fri', hours: '9:30 AM – 5:30 PM' },
@@ -83,30 +80,7 @@ export function InfoPanel({
         </ul>
       </section>
 
-      {/* Latest notice */}
-      <section className="flex-1 rounded-xl border border-border bg-card p-5">
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
-          <Megaphone className="size-4" /> Latest Notice
-        </div>
-        <div className="flex gap-3 rounded-lg bg-accent p-3">
-          <Bell className="mt-0.5 size-4 shrink-0 text-primary" />
-          <p className="text-sm leading-relaxed text-foreground">
-            Revised FD interest rates effective 1 Aug 2026. Senior citizens earn
-            an additional 0.50% p.a. on all tenures.
-          </p>
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Popular now:{' '}
-          <span className="font-medium text-foreground">
-            {SERVICE_LABELS.fund_transfer}
-          </span>{' '}
-          and{' '}
-          <span className="font-medium text-foreground">
-            {SERVICE_LABELS.cash_withdrawal}
-          </span>
-          .
-        </p>
-      </section>
+
     </aside>
   )
 }

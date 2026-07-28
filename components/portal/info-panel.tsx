@@ -16,9 +16,9 @@ import { LoansDialog } from './dialogs/loans-dialog'
 import { FdRatesDialog } from './dialogs/fd-rates-dialog'
 
 const TIMINGS = [
-  { day: 'Mon – Fri', hours: '9:30 AM – 5:30 PM' },
-  { day: 'Saturday', hours: '9:30 AM – 1:30 PM' },
-  { day: 'Sunday', hours: 'Closed' },
+  { day: 'Mon – Fri', hours: '9:30 AM – 5:30 PM', lunch: '2:00 PM – 2:30 PM' },
+  { day: 'Saturday', hours: '9:30 AM – 1:30 PM', lunch: null },
+  { day: 'Sunday', hours: 'Closed', lunch: null },
 ]
 
 export function InfoPanel({
@@ -72,21 +72,6 @@ export function InfoPanel({
         </Button>
       </section>
 
-      {/* Branch timings */}
-      <section className="rounded-xl border border-border bg-card p-5">
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
-          <Clock3 className="size-4" /> Branch Timings
-        </div>
-        <ul className="space-y-2">
-          {TIMINGS.map((t) => (
-            <li key={t.day} className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">{t.day}</span>
-              <span className="font-medium text-foreground">{t.hours}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Products */}
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
@@ -114,6 +99,29 @@ export function InfoPanel({
             </div>
           </button>
         </div>
+      </section>
+
+      {/* Branch timings */}
+      <section className="rounded-xl border border-border bg-card p-5">
+        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+          <Clock3 className="size-4" /> Branch Timings
+        </div>
+        <ul className="space-y-3">
+          {TIMINGS.map((t) => (
+            <li key={t.day} className="space-y-1">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">{t.day}</span>
+                <span className="font-medium text-foreground">{t.hours}</span>
+              </div>
+              {t.lunch && (
+                <div className="flex items-center justify-between text-xs pl-0">
+                  <span className="text-muted-foreground">Lunch Break</span>
+                  <span className="font-medium text-foreground">{t.lunch}</span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Dialogs */}

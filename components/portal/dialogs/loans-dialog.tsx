@@ -49,7 +49,7 @@ export function LoansDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Loan Products</DialogTitle>
+          <DialogTitle>Loan Rates</DialogTitle>
           <DialogDescription>
             Select a loan type to learn more or apply
           </DialogDescription>

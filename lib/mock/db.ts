@@ -4,6 +4,7 @@
 
 import type {
   Account,
+  Branch,
   KycDocument,
   Profile,
   QueueToken,
@@ -18,6 +19,20 @@ export function delay(ms = 500) {
 export function makeReference() {
   const n = Math.floor(100000 + Math.random() * 900000)
   return `SBK${n}`
+}
+
+// Branch configuration
+export const branchConfig: Branch = {
+  id: 'branch_bhl',
+  code: 'BHL',
+  name: 'MG Road, Bengaluru',
+  address: '123 MG Road, Bengaluru 560001, Karnataka',
+  contact: '+91 80 4077 0000',
+}
+
+// Customer database with mobile numbers for kiosk login
+const customerMobileMap: Record<string, string> = {
+  '9876543210': 'u_customer',
 }
 
 export const profiles: Profile[] = [
@@ -213,11 +228,80 @@ export let queueTokens: QueueToken[] = [
   },
 ]
 
+// Mock OTP service
+let mockOtp: string | null = null
+let mockOtpTimestamp: number | null = null
+const OTP_EXPIRY_MS = 5 * 60 * 1000 // 5 minutes
+
+export function generateOtp(): string {
+  mockOtp = String(Math.floor(100000 + Math.random() * 900000))
+  mockOtpTimestamp = Date.now()
+  console.log('[v0] Mock OTP generated:', mockOtp)
+  return mockOtp
+}
+
+export function verifyOtp(otp: string): boolean {
+  if (!mockOtp || !mockOtpTimestamp) return false
+  if (Date.now() - mockOtpTimestamp > OTP_EXPIRY_MS) {
+    mockOtp = null
+    mockOtpTimestamp = null
+    return false
+  }
+  return otp === mockOtp
+}
+
+// Daily queue counters per service type
+const queueCounters: Record<string, number> = {
+  cash_deposit: 0,
+  cash_withdrawal: 0,
+  fund_transfer: 0,
+  cheque_deposit: 0,
+  digital_kyc: 0,
+  account_balance: 0,
+}
+
+function getTodayDateString(): string {
+  const now = new Date()
+  return now.toISOString().split('T')[0].replace(/-/g, '')
+}
+
+export function getNextQueueNumber(serviceType: string): {
+  number: string
+  sequenceNumber: number
+  date: string
+} {
+  const counter = (queueCounters[serviceType] ?? 0) + 1
+  queueCounters[serviceType] = counter
+  const date = getTodayDateString()
+  const sequencePadded = String(counter).padStart(3, '0')
+  const serviceCode = getServiceCode(serviceType)
+  const number = `SB-${branchConfig.code}-${serviceCode}-${date}-${sequencePadded}`
+  return { number, sequenceNumber: counter, date }
+}
+
+function getServiceCode(serviceType: string): string {
+  const codes: Record<string, string> = {
+    cash_deposit: 'CASH',
+    cash_withdrawal: 'CASH',
+    fund_transfer: 'FUND',
+    cheque_deposit: 'CHK',
+    digital_kyc: 'KYC',
+    account_balance: 'BAL',
+  }
+  return codes[serviceType] ?? 'GEN'
+}
+
 let tokenCounter = 106
 
 export function nextTokenNumber() {
   tokenCounter += 1
   return `A-${tokenCounter}`
+}
+
+export function getCustomerByMobileNumber(mobileNumber: string): Profile | null {
+  const userId = customerMobileMap[mobileNumber]
+  if (!userId) return null
+  return profiles.find((p) => p.id === userId) ?? null
 }
 
 // eslint-disable-next-line prefer-const

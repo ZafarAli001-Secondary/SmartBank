@@ -6,6 +6,7 @@ import { BottomActionBar } from '@/components/kiosk/bottom-action-bar'
 import { VirtualKeyboard } from '@/components/kiosk/virtual-keyboard'
 import { ServiceCard } from '@/components/portal/service-card'
 import { InfoPanel } from '@/components/portal/info-panel'
+import { CustomerInfoCard } from '@/components/portal/customer-info-card'
 import { HelpDialog } from '@/components/portal/dialogs/help-dialog'
 import { ServiceFormDialog } from '@/components/portal/dialogs/service-form-dialog'
 import { TokenDialog } from '@/components/portal/dialogs/token-dialog'
@@ -24,7 +25,7 @@ const FORM_SERVICES: ServiceType[] = [
 ]
 
 export function CustomerPortal() {
-  const { user } = useAuth()
+  const { user, primaryAccount, branch } = useAuth()
   const [active, setActive] = useState<ServiceDef | null>(null)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
@@ -46,6 +47,9 @@ export function CustomerPortal() {
       <main className="flex min-h-0 flex-1 gap-5 p-5">
         {/* Service grid */}
         <section className="flex min-w-0 flex-1 flex-col">
+          {/* Customer Info Card */}
+          {user && <CustomerInfoCard user={user} account={primaryAccount} branch={branch} />}
+
           <div className="mb-4 flex items-end justify-between">
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-foreground">

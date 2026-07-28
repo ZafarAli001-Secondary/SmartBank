@@ -1,4 +1,4 @@
-import { delay, nextTokenNumber, queueTokens } from '@/lib/mock/db'
+import { delay, nextTokenNumber, queueTokens, getNextQueueNumber, branchConfig } from '@/lib/mock/db'
 import type { QueueToken, ServiceType } from '@/lib/supabase/types'
 
 export async function listQueueTokens(): Promise<QueueToken[]> {
@@ -12,12 +12,20 @@ export async function generateToken(input: {
   service_type: ServiceType
 }): Promise<QueueToken> {
   await delay(700)
+  
+  // Generate realistic queue token number
+  const queueInfo = getNextQueueNumber(input.service_type)
+  
   const token: QueueToken = {
     id: `q_${Date.now()}`,
-    token_number: nextTokenNumber(),
+    token_number: queueInfo.number,
     status: 'waiting',
     counter: null,
     created_at: new Date().toISOString(),
+    branch_code: branchConfig.code,
+    date: queueInfo.date,
+    sequence_number: queueInfo.sequenceNumber,
+    estimated_wait_time: Math.floor(Math.random() * 15) + 5, // 5-20 minutes
     ...input,
   }
   queueTokens.push(token)

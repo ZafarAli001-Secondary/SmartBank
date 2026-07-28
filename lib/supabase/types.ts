@@ -74,9 +74,21 @@ export interface QueueToken {
   user_id: string | null
   customer_name: string
   service_type: ServiceType
-  status: 'waiting' | 'serving' | 'done'
+  status: 'waiting' | 'serving' | 'done' | 'called' | 'in_service' | 'completed' | 'cancelled'
   counter: number | null
   created_at: string
+  branch_code?: string
+  date?: string
+  sequence_number?: number
+  estimated_wait_time?: number
+}
+
+export interface Branch {
+  id: string
+  code: string
+  name: string
+  address: string
+  contact: string
 }
 
 export interface KycDocument {

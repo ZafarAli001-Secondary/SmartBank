@@ -3,17 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import {
-  Eye,
-  EyeOff,
-  Loader2,
-  Lock,
-  LogIn,
-  ShieldCheck,
-  User,
-  UserCog,
-  Users,
-} from 'lucide-react'
+import { Loader2, LogIn, Smartphone, Lock } from 'lucide-react'
 import { Logo } from '@/components/brand/logo'
 import { Clock } from '@/components/kiosk/clock'
 import { LanguageSelect } from '@/components/kiosk/language-select'
@@ -23,80 +13,89 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/lib/auth/auth-provider'
-import type { UserRole } from '@/lib/supabase/types'
 
-const ROLES: {
-  value: UserRole
-  label: string
-  hint: string
-  icon: typeof User
-}[] = [
-  { value: 'customer', label: 'Customer', hint: 'customer', icon: User },
-  { value: 'staff', label: 'Staff', hint: 'staff', icon: Users },
-  { value: 'admin', label: 'Admin', hint: 'admin', icon: UserCog },
-]
-
-const ROUTE_BY_ROLE: Record<UserRole, string> = {
-  customer: '/portal',
-  staff: '/staff',
-  admin: '/admin',
-}
+type LoginStep = 'mobile' | 'otp'
 
 export function LoginScreen() {
   const router = useRouter()
-  const { signIn } = useAuth()
-  const [role, setRole] = useState<UserRole>('customer')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  const { generateOtp, verifyOtp, branch } = useAuth()
+  const [step, setStep] = useState<LoginStep>('mobile')
+  const [mobileNumber, setMobileNumber] = useState('')
+  const [otp, setOtp] = useState('')
   const [language, setLanguage] = useState('en')
   const [submitting, setSubmitting] = useState(false)
+  const [otpMessage, setOtpMessage] = useState('')
 
-  const activeRole = ROLES.find((r) => r.value === role)!
-
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSendOtp(e: React.FormEvent) {
     e.preventDefault()
-    if (!username.trim() || !password.trim()) {
-      toast.error('Enter your username and password to continue.')
+    const mobile = mobileNumber.replace(/\D/g, '')
+    if (!mobile || mobile.length !== 10) {
+      toast.error('Please enter a valid 10-digit mobile number.')
       return
     }
     setSubmitting(true)
     try {
-      const profile = await signIn(username, password, role)
-      toast.success(`Welcome, ${profile.full_name.split(' ')[0]}`)
-      router.push(ROUTE_BY_ROLE[profile.role])
+      const result = await generateOtp(mobileNumber)
+      if (result.success) {
+        setOtpMessage(result.message)
+        setStep('otp')
+        toast.success('OTP sent successfully')
+      } else {
+        toast.error(result.message)
+      }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Login failed.')
+      toast.error(err instanceof Error ? err.message : 'Failed to send OTP')
+    } finally {
       setSubmitting(false)
     }
+  }
+
+  async function handleVerifyOtp(e: React.FormEvent) {
+    e.preventDefault()
+    if (!otp || otp.length !== 6) {
+      toast.error('Please enter a valid 6-digit OTP.')
+      return
+    }
+    setSubmitting(true)
+    try {
+      const result = await verifyOtp(mobileNumber, otp)
+      if (result.success) {
+        toast.success(`Welcome, ${result.user?.full_name.split(' ')[0]}`)
+        router.push('/portal')
+      } else {
+        toast.error(result.error || 'OTP verification failed')
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Verification failed')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  function handleBackToMobile() {
+    setStep('mobile')
+    setOtp('')
   }
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
       {/* Brand panel */}
       <aside className="relative hidden w-[42%] flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
-        <Logo size="lg" className="[&_*]:text-primary-foreground [&>div:first-child]:bg-primary-foreground [&>div:first-child]:text-primary" />
+        <Logo
+          size="lg"
+          className="[&_*]:text-primary-foreground [&>div:first-child]:bg-primary-foreground [&>div:first-child]:text-primary"
+        />
         <div className="space-y-6">
           <h1 className="text-4xl font-bold leading-tight text-balance">
-            Banking made simple, right here at the branch.
+            Welcome to SmartBank
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
-            Deposit, withdraw, transfer and manage your accounts in seconds.
-            Skip the wait with digital queue tokens.
+            Access your banking services at {branch?.name || 'your branch'}.
+            Complete transactions securely and efficiently.
           </p>
-          <ul className="space-y-3 text-primary-foreground/90">
-            {['Secure role-based access', '24x7 self-service', 'Instant queue tokens'].map(
-              (item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <ShieldCheck className="size-5 shrink-0" />
-                  <span className="text-base">{item}</span>
-                </li>
-              ),
-            )}
-          </ul>
         </div>
         <p className="text-sm text-primary-foreground/70">
-          Branch: MG Road, Bengaluru · Kiosk #04
+          Branch: {branch?.name || 'MG Road, Bengaluru'} · Kiosk #04
         </p>
       </aside>
 
@@ -115,112 +114,101 @@ export function LoginScreen() {
             </div>
             <div className="mb-7">
               <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                Sign in to continue
+                Welcome to SmartBank
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Select your role and enter your credentials.
+                {branch?.name}
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label className="text-sm font-semibold">Login as</Label>
-                <div className="grid grid-cols-3 gap-3">
-                  {ROLES.map((r) => {
-                    const Icon = r.icon
-                    const active = r.value === role
-                    return (
-                      <button
-                        key={r.value}
-                        type="button"
-                        onClick={() => {
-                          setRole(r.value)
-                          setUsername(r.hint)
-                        }}
-                        aria-pressed={active}
-                        className={cn(
-                          'flex h-[84px] flex-col items-center justify-center gap-2 rounded-lg border-2 text-sm font-medium transition-colors',
-                          active
-                            ? 'border-primary bg-accent text-primary'
-                            : 'border-border bg-card text-muted-foreground hover:border-primary/40',
-                        )}
-                      >
-                        <Icon className="size-6" />
-                        {r.label}
-                      </button>
-                    )
-                  })}
+            {step === 'mobile' && (
+              <form onSubmit={handleSendOtp} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="mobile" className="text-sm font-semibold">
+                    Registered Mobile Number
+                  </Label>
+                  <div className="relative">
+                    <Smartphone className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      id="mobile"
+                      type="tel"
+                      value={mobileNumber}
+                      onChange={(e) => setMobileNumber(e.target.value)}
+                      placeholder="Enter 10-digit mobile number"
+                      autoComplete="tel"
+                      maxLength="14"
+                      className="h-14 pl-11 text-base"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="username" className="text-sm font-semibold">
-                  Username
-                </Label>
-                <div className="relative">
-                  <User className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter username"
-                    autoComplete="username"
-                    className="h-14 pl-11 text-base"
-                  />
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="h-14 w-full gap-2 text-base font-semibold"
+                >
+                  {submitting ? (
+                    <Loader2 className="size-5 animate-spin" />
+                  ) : (
+                    <LogIn className="size-5" />
+                  )}
+                  {submitting ? 'Sending OTP…' : 'Send OTP'}
+                </Button>
+
+                <p className="rounded-lg bg-muted px-4 py-3 text-center text-sm text-muted-foreground">
+                  Demo: Use mobile number <span className="font-semibold text-foreground">9876543210</span>
+                </p>
+              </form>
+            )}
+
+            {step === 'otp' && (
+              <form onSubmit={handleVerifyOtp} className="space-y-6">
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">
+                    Enter OTP sent to {mobileNumber}
+                  </p>
+                  {otpMessage && (
+                    <p className="text-xs text-amber-600 dark:text-amber-500">
+                      {otpMessage}
+                    </p>
+                  )}
+                  <div className="relative">
+                    <Lock className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      id="otp"
+                      type="text"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      placeholder="Enter 6-digit OTP"
+                      maxLength="6"
+                      className="h-14 pl-11 text-center text-2xl tracking-widest"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-semibold">
-                  Password
-                </Label>
-                <div className="relative">
-                  <Lock className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter password"
-                    autoComplete="current-password"
-                    className="h-14 px-11 text-base"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((v) => !v)}
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="size-5" />
-                    ) : (
-                      <Eye className="size-5" />
-                    )}
-                  </button>
-                </div>
-              </div>
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="h-14 w-full gap-2 text-base font-semibold"
+                >
+                  {submitting ? (
+                    <Loader2 className="size-5 animate-spin" />
+                  ) : (
+                    <LogIn className="size-5" />
+                  )}
+                  {submitting ? 'Verifying…' : 'Verify OTP'}
+                </Button>
 
-              <Button
-                type="submit"
-                disabled={submitting}
-                className="h-14 w-full gap-2 text-base font-semibold"
-              >
-                {submitting ? (
-                  <Loader2 className="size-5 animate-spin" />
-                ) : (
-                  <LogIn className="size-5" />
-                )}
-                {submitting ? 'Signing in…' : `Sign in as ${activeRole.label}`}
-              </Button>
-
-              <p className="rounded-lg bg-muted px-4 py-3 text-center text-sm text-muted-foreground">
-                Demo access — username{' '}
-                <span className="font-semibold text-foreground">
-                  {activeRole.hint}
-                </span>
-                , any password.
-              </p>
-            </form>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleBackToMobile}
+                  className="h-12 w-full text-base font-semibold"
+                >
+                  Back
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </main>

@@ -108,7 +108,7 @@ export function InfoPanel({
           <AlertCircle className="size-4" /> Upcoming Holidays
         </div>
         <ul className="space-y-2">
-          {BANK_HOLIDAYS.slice(0, 2).map((holiday) => (
+          {BANK_HOLIDAYS.slice(0, 1).map((holiday) => (
             <li
               key={holiday.date}
               className="rounded-lg bg-accent/50 p-3 border border-accent"

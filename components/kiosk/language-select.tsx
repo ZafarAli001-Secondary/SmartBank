@@ -18,7 +18,7 @@ export function LanguageSelect({
   onChange: (value: string) => void
 }) {
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={value} onValueChange={(v) => onChange(v ?? value)}>
       <SelectTrigger className="h-12 min-w-[130px] gap-2" aria-label="Select language">
         <Globe className="size-4 text-muted-foreground" />
         <SelectValue />

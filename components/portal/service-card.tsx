@@ -14,16 +14,16 @@ export function ServiceCard({
     <button
       type="button"
       onClick={() => onSelect(service)}
-      className="group flex h-full min-h-[128px] flex-col items-start justify-between rounded-xl border border-border bg-card p-5 text-left transition-all hover:border-primary hover:shadow-md active:scale-[0.98] active:bg-accent"
+      className="group flex h-full min-h-0 flex-col items-start justify-between rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary hover:shadow-md active:scale-[0.98] active:bg-accent"
     >
-      <div className="flex size-12 items-center justify-center rounded-lg bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-        <Icon className="size-6" strokeWidth={2} />
+      <div className="flex size-10 items-center justify-center rounded-lg bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground shrink-0">
+        <Icon className="size-5" strokeWidth={2} />
       </div>
-      <div>
-        <div className="text-lg font-semibold text-foreground">
+      <div className="min-w-0">
+        <div className="text-base font-semibold text-foreground">
           {service.title}
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           {service.description}
         </div>
       </div>

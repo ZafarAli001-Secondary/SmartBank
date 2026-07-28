@@ -41,13 +41,13 @@ export function CustomerPortal() {
     <div className="relative flex h-screen flex-col overflow-hidden bg-background">
       <KioskHeader />
 
-      <main className="flex min-h-0 flex-1 gap-5 p-5">
+      <main className="flex min-h-0 flex-1 gap-5 p-5 overflow-hidden">
         {/* Service grid */}
-        <section className="flex min-w-0 flex-1 flex-col">
+        <section className="flex min-w-0 flex-1 flex-col overflow-hidden">
           {/* Customer Info Card */}
           {user && <CustomerInfoCard user={user} account={primaryAccount} branch={branch} />}
 
-          <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-4 gap-6">
+          <div className="grid flex-1 grid-cols-2 grid-cols-3 gap-5 auto-rows-fr min-h-0">
             {SERVICES.filter((s) => s.type !== 'queue_token').map((service) => (
               <ServiceCard
                 key={service.type}

@@ -11,7 +11,7 @@ interface CustomerInfoCardProps {
 
 export function CustomerInfoCard({ user, account, branch }: CustomerInfoCardProps) {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 mb-4">
+    <div className="rounded-lg border border-border bg-card p-3 mb-3 shrink-0">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {/* Customer Name */}
         <div className="flex items-start gap-3">

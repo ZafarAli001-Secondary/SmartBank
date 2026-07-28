@@ -12,7 +12,6 @@ import { ServiceFormDialog } from '@/components/portal/dialogs/service-form-dial
 import { TokenDialog } from '@/components/portal/dialogs/token-dialog'
 import { KycDialog } from '@/components/portal/dialogs/kyc-dialog'
 import { AccountDialog } from '@/components/portal/dialogs/account-dialog'
-import { MoreServicesDialog } from '@/components/portal/dialogs/more-services-dialog'
 import { SERVICES, type ServiceDef } from '@/lib/services-config'
 import { useAuth } from '@/lib/auth/auth-provider'
 import type { ServiceType } from '@/lib/supabase/types'
@@ -89,7 +88,6 @@ export function CustomerPortal() {
       />
       <KycDialog open={activeType === 'digital_kyc'} onClose={close} />
       <AccountDialog open={activeType === 'account_balance'} onClose={close} />
-      <MoreServicesDialog open={activeType === 'more_services'} onClose={close} />
 
       <HelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
     </div>

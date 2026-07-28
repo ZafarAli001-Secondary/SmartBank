@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import {
-  Clock3,
   Ticket,
   Users2,
   Briefcase,
   TrendingUp,
+  AlertCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -15,10 +15,11 @@ import { getQueueStats, listQueueTokens } from '@/services/queue-service'
 import { LoansDialog } from './dialogs/loans-dialog'
 import { FdRatesDialog } from './dialogs/fd-rates-dialog'
 
-const TIMINGS = [
-  { day: 'Mon – Fri', hours: '9:30 AM – 5:30 PM', lunch: '2:00 PM – 2:30 PM' },
-  { day: 'Saturday', hours: '9:30 AM – 1:30 PM', lunch: null },
-  { day: 'Sunday', hours: 'Closed', lunch: null },
+const BANK_HOLIDAYS = [
+  { date: '15 Aug 2026', occasion: 'Independence Day' },
+  { date: '2 Oct 2026', occasion: 'Gandhi Jayanti' },
+  { date: '25 Dec 2026', occasion: 'Christmas' },
+  { date: '26 Jan 2027', occasion: 'Republic Day' },
 ]
 
 export function InfoPanel({
@@ -101,24 +102,25 @@ export function InfoPanel({
         </div>
       </section>
 
-      {/* Branch timings */}
+      {/* Bank Holidays */}
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
-          <Clock3 className="size-4" /> Branch Timings
+          <AlertCircle className="size-4" /> Upcoming Holidays
         </div>
-        <ul className="space-y-3">
-          {TIMINGS.map((t) => (
-            <li key={t.day} className="space-y-1">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">{t.day}</span>
-                <span className="font-medium text-foreground">{t.hours}</span>
+        <ul className="space-y-2">
+          {BANK_HOLIDAYS.slice(0, 2).map((holiday) => (
+            <li
+              key={holiday.date}
+              className="rounded-lg bg-accent/50 p-3 border border-accent"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-foreground">
+                  {holiday.occasion}
+                </span>
+                <span className="text-xs font-medium text-primary">
+                  {holiday.date}
+                </span>
               </div>
-              {t.lunch && (
-                <div className="flex items-center justify-between text-xs pl-0">
-                  <span className="text-muted-foreground">Lunch Break</span>
-                  <span className="font-medium text-foreground">{t.lunch}</span>
-                </div>
-              )}
             </li>
           ))}
         </ul>

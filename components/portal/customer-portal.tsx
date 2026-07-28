@@ -48,7 +48,7 @@ export function CustomerPortal() {
           {/* Customer Info Card */}
           {user && <CustomerInfoCard user={user} account={primaryAccount} branch={branch} />}
 
-          <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-4 gap-4">
+          <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-4 gap-6">
             {SERVICES.map((service) => (
               <ServiceCard
                 key={service.type}

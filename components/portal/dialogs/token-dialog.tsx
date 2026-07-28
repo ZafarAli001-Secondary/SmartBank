@@ -12,13 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { cn } from '@/lib/utils'
 import { useAuth } from '@/lib/auth/auth-provider'
 import { generateToken } from '@/services/queue-service'
 import { SERVICE_LABELS } from '@/lib/services-config'
@@ -86,7 +80,7 @@ export function TokenDialog({
           <div className="flex flex-col items-center py-4 text-center">
             <div className="w-full rounded-xl bg-primary p-8 text-primary-foreground">
               <div className="text-sm font-medium opacity-80">Your Token</div>
-              <div className="text-6xl font-bold tracking-wider">
+              <div className="text-3xl font-bold tracking-wider">
                 {token.token_number}
               </div>
               <div className="mt-2 text-sm opacity-90">
@@ -102,23 +96,24 @@ export function TokenDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">Service required</Label>
-              <Select
-                value={serviceType}
-                onValueChange={(v) => setServiceType(v as ServiceType)}
-              >
-                <SelectTrigger className="h-12 text-base">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {TOKEN_SERVICES.map((type) => (
-                    <SelectItem key={type} value={type} className="h-11 text-base">
-                      {SERVICE_LABELS[type]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="space-y-3">
+              <Label className="text-sm font-semibold">Select a service</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {TOKEN_SERVICES.map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setServiceType(type)}
+                    className={cn(
+                      'rounded-lg border-2 p-3 text-sm font-medium transition-colors',
+                      serviceType === type
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-border bg-card text-muted-foreground hover:border-primary/50'
+                    )}
+                  >
+                    {SERVICE_LABELS[type]}
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="flex gap-3">
               <Button

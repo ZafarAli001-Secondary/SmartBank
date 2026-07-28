@@ -4,6 +4,7 @@
 
 import type {
   Account,
+  KycDocument,
   Profile,
   QueueToken,
   ServiceRequest,
@@ -217,6 +218,17 @@ let tokenCounter = 106
 export function nextTokenNumber() {
   tokenCounter += 1
   return `A-${tokenCounter}`
+}
+
+// eslint-disable-next-line prefer-const
+export let kycDocuments: KycDocument[] = []
+
+export function setProfileKycStatus(
+  userId: string,
+  status: Profile['kyc_status'],
+) {
+  const profile = profiles.find((p) => p.id === userId)
+  if (profile) profile.kyc_status = status
 }
 
 export { nextBalance }

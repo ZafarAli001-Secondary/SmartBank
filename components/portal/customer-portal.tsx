@@ -38,8 +38,6 @@ export function CustomerPortal() {
   const openToken = () =>
     setActive(SERVICES.find((s) => s.type === 'queue_token') ?? null)
 
-  const firstName = user?.full_name.split(' ')[0] ?? 'there'
-
   return (
     <div className="relative flex h-screen flex-col overflow-hidden bg-background">
       <KioskHeader />
@@ -50,16 +48,6 @@ export function CustomerPortal() {
           {/* Customer Info Card */}
           {user && <CustomerInfoCard user={user} account={primaryAccount} branch={branch} />}
 
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight text-foreground">
-                Good day, {firstName}
-              </h1>
-              <p className="text-muted-foreground">
-                Select a service to get started.
-              </p>
-            </div>
-          </div>
           <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-4 gap-4">
             {SERVICES.map((service) => (
               <ServiceCard

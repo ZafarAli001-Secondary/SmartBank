@@ -6,7 +6,6 @@ import {
   ShieldCheck,
   Ticket,
   Wallet,
-  LayoutGrid,
   HandCoins,
   type LucideIcon,
 } from 'lucide-react'
@@ -61,12 +60,6 @@ export const SERVICES: ServiceDef[] = [
     description: 'Balance, statement & rates',
     icon: Wallet,
   },
-  {
-    type: 'more_services',
-    title: 'More Services',
-    description: 'Loans, FD rates & profile',
-    icon: LayoutGrid,
-  },
 ]
 
 export const SERVICE_LABELS: Record<ServiceType, string> = {
@@ -77,7 +70,6 @@ export const SERVICE_LABELS: Record<ServiceType, string> = {
   digital_kyc: 'Digital KYC',
   queue_token: 'Queue Token',
   account_balance: 'Account Balance',
-  more_services: 'More Services',
 }
 
 export interface RateRow {

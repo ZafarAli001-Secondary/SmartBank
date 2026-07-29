@@ -1,5 +1,6 @@
-import { LoginScreen } from '@/components/auth/login-screen'
+import { redirect } from 'next/navigation'
 
-export default function LoginPage() {
-  return <LoginScreen />
+export default function RootPage() {
+  // Redirect to kiosk login by default
+  redirect('/kiosk')
 }

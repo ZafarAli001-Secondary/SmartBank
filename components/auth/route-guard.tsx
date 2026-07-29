@@ -23,10 +23,10 @@ export function RouteGuard({
     } else if (user.role !== role) {
       const home =
         user.role === 'customer'
-          ? '/portal'
+          ? '/kiosk/portal'
           : user.role === 'staff'
-            ? '/staff'
-            : '/admin'
+            ? '/staff/dashboard'
+            : '/admin/dashboard'
       router.replace(home)
     }
   }, [user, loading, role, router])

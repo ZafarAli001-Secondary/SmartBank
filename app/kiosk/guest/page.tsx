@@ -3,11 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Logo } from '@/components/brand/logo'
 import { Clock } from '@/components/kiosk/clock'
 import { LanguageSelect } from '@/components/kiosk/language-select'
 import { AccessibilityButton } from '@/components/kiosk/accessibility-button'
-import { branchConfig } from '@/lib/mock/db'
 import {
   Plus,
   DollarSign,
@@ -83,26 +81,7 @@ export default function GuestServicesPage() {
   const router = useRouter()
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background">
-      {/* Brand panel */}
-      <aside className="relative hidden w-[42%] flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
-        <Logo
-          size="lg"
-          className="[&_*]:text-primary-foreground [&>div:first-child]:bg-primary-foreground [&>div:first-child]:text-primary"
-        />
-        <div className="space-y-6">
-          <h1 className="text-4xl font-bold leading-tight text-balance">
-            Guest Services
-          </h1>
-          <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
-            Access our banking services without login. Open accounts, check rates, and more.
-          </p>
-        </div>
-        <p className="text-sm text-primary-foreground/70">
-          Branch: {branchConfig.name} · Kiosk #04
-        </p>
-      </aside>
-
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
       {/* Services grid */}
       <main className="flex flex-1 flex-col">
         <header className="flex items-center justify-end gap-3 p-5">

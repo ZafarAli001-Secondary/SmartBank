@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/lib/auth/auth-provider'
+import { EmployeeAuthProvider } from '@/lib/auth/employee-auth-provider'
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
@@ -34,7 +35,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`light ${inter.variable}`}>
       <body className="bg-background font-sans antialiased">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <EmployeeAuthProvider>
+            {children}
+          </EmployeeAuthProvider>
+        </AuthProvider>
         <Toaster position="top-center" richColors />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

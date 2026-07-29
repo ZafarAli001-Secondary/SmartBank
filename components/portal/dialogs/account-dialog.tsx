@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { formatINR } from '@/lib/services-config'
 import { useAuth } from '@/lib/auth/auth-provider'
+import { MiniStatementDialog } from './mini-statement-dialog'
 
 export function AccountDialog({
   open,
@@ -23,6 +24,7 @@ export function AccountDialog({
 }) {
   const { primaryAccount } = useAuth()
   const [showBalance, setShowBalance] = useState(true)
+  const [miniStatementOpen, setMiniStatementOpen] = useState(false)
 
   // Mock balance data
   const balance = 2547891.50
@@ -106,19 +108,23 @@ export function AccountDialog({
           <Separator />
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-2 pt-2">
-            <Button variant="outline" className="h-11">
-              Mini Statement
-            </Button>
-            <Button variant="outline" className="h-11">
-              Download Statement
-            </Button>
-          </div>
+          <Button
+            onClick={() => setMiniStatementOpen(true)}
+            className="h-12 w-full font-semibold"
+          >
+            View Mini Statement
+          </Button>
 
-          <Button onClick={onClose} className="h-12 w-full font-semibold">
+          <Button onClick={onClose} variant="outline" className="h-12 w-full">
             Done
           </Button>
         </div>
+
+        {/* Mini Statement Dialog */}
+        <MiniStatementDialog
+          open={miniStatementOpen}
+          onClose={() => setMiniStatementOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   )

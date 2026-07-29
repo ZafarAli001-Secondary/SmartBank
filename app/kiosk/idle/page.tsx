@@ -32,7 +32,7 @@ export default function IdlePage() {
 
     // Redirect to portal after 2 minutes of inactivity or if idle for too long
     const timeout = setTimeout(() => {
-      router.push('/portal')
+      router.push('/kiosk/portal')
     }, 120000) // 2 minutes
 
     // Track idle time
@@ -42,7 +42,7 @@ export default function IdlePage() {
 
     const handleActivity = () => {
       clearTimeout(timeout)
-      router.push('/portal')
+      router.push('/kiosk/portal')
     }
 
     window.addEventListener('click', handleActivity)

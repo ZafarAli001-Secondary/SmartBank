@@ -61,7 +61,7 @@ export function LoginScreen() {
       const result = await verifyOtp(mobileNumber, otp)
       if (result.success) {
         toast.success(`Welcome, ${result.user?.full_name.split(' ')[0]}`)
-        router.push('/portal')
+        router.push('/kiosk/portal')
       } else {
         toast.error(result.error || 'OTP verification failed')
       }

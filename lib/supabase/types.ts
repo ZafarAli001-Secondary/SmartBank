@@ -3,6 +3,17 @@
 
 export type UserRole = 'customer' | 'staff' | 'admin'
 
+export type EmployeeRole = 'staff' | 'admin'
+
+export type NavigationItem = {
+  id: string
+  label: string
+  href: string
+  icon?: string
+  roles: EmployeeRole[]
+  children?: NavigationItem[]
+}
+
 export type ServiceType =
   | 'cash_deposit'
   | 'cash_withdrawal'
@@ -20,6 +31,22 @@ export type RequestStatus =
   | 'completed'
 
 export type KycStatus = 'not_submitted' | 'pending' | 'verified' | 'rejected'
+
+export interface Employee {
+  id: string
+  employee_id: string
+  full_name: string
+  username: string
+  password?: string
+  role: EmployeeRole
+  department: string
+  branch_id: string
+  branch_name: string
+  email: string
+  phone: string
+  created_at: string
+  is_active: boolean
+}
 
 export interface Profile {
   id: string

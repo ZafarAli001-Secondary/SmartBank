@@ -7,6 +7,7 @@ import type {
   Alert,
   Branch,
   Device,
+  Employee,
   Kiosk,
   KycDocument,
   Profile,
@@ -71,6 +72,55 @@ export const profiles: Profile[] = [
     avatar_url: null,
     kyc_status: 'verified',
     created_at: '2021-08-19T09:00:00Z',
+  },
+]
+
+// Employee database for Internal Banking Portal
+export const employees: Employee[] = [
+  {
+    id: 'emp_1',
+    employee_id: 'EMP-001',
+    full_name: 'Priya Nair',
+    username: 'staff',
+    password: 'staff123', // Demo only
+    role: 'staff',
+    department: 'Customer Service',
+    branch_id: 'branch_bhl',
+    branch_name: 'MG Road, Bengaluru',
+    email: 'priya.nair@smartbank.example',
+    phone: '+91 90000 11111',
+    created_at: '2022-01-05T09:00:00Z',
+    is_active: true,
+  },
+  {
+    id: 'emp_2',
+    employee_id: 'EMP-002',
+    full_name: 'Rohan Mehta',
+    username: 'admin',
+    password: 'admin123', // Demo only
+    role: 'admin',
+    department: 'Branch Management',
+    branch_id: 'branch_bhl',
+    branch_name: 'MG Road, Bengaluru',
+    email: 'rohan.mehta@smartbank.example',
+    phone: '+91 90000 22222',
+    created_at: '2021-08-19T09:00:00Z',
+    is_active: true,
+  },
+  {
+    id: 'emp_3',
+    employee_id: 'EMP-003',
+    full_name: 'Anjali Sharma',
+    username: 'staff2',
+    password: 'staff123',
+    role: 'staff',
+    department: 'KYC Verification',
+    branch_id: 'branch_bhl',
+    branch_name: 'MG Road, Bengaluru',
+    email: 'anjali.sharma@smartbank.example',
+    phone: '+91 90000 33333',
+    created_at: '2022-06-10T09:00:00Z',
+    is_active: true,
   },
 ]
 

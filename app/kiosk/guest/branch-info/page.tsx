@@ -22,7 +22,7 @@ export default function BranchInfoPage() {
             Branch Information
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
-            Contact details and operating hours for your nearest SmartBank branch.
+            Contact details and operating hours for your nearest FinCore branch.
           </p>
         </div>
       </aside>

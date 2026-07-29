@@ -28,7 +28,7 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome to SmartBank Internal Portal</p>
+        <p className="text-muted-foreground">Welcome to FinCore Internal Portal</p>
       </div>
 
       {/* Stats Grid */}

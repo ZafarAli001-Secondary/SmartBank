@@ -159,7 +159,7 @@ export default function CashDepositPage() {
             Cash Deposit
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
-            Deposit cash into any SmartBank account. Your request will be processed by our staff.
+            Deposit cash into any FinCore account. Your request will be processed by our staff.
           </p>
         </div>
       </aside>

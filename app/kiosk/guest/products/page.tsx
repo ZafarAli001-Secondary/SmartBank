@@ -106,7 +106,7 @@ export default function ProductsPage() {
           </div>
 
           <Card className="mt-8 p-6">
-            <h3 className="text-lg font-bold text-foreground mb-3">Why Choose SmartBank?</h3>
+            <h3 className="text-lg font-bold text-foreground mb-3">Why Choose FinCore?</h3>
             <div className="grid gap-4 md:grid-cols-3">
               <div>
                 <p className="font-semibold text-foreground mb-2">Trusted Partner</p>

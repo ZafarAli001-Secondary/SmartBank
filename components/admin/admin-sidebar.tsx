@@ -12,7 +12,7 @@ export function AdminSidebar() {
     <aside className="w-64 border-r border-border bg-card p-4 flex flex-col h-screen">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-xl font-bold text-foreground">SmartBank Admin</h1>
+        <h1 className="text-xl font-bold text-foreground">FinCore Admin</h1>
         <p className="text-xs text-muted-foreground">Branch Management</p>
       </div>
 

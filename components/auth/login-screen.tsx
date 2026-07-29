@@ -87,7 +87,7 @@ export function LoginScreen() {
         />
         <div className="space-y-6">
           <h1 className="text-4xl font-bold leading-tight text-balance">
-            Welcome to SmartBank
+            Welcome to FinCore
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
             Access your banking services at {branch?.name || 'your branch'}.
@@ -114,7 +114,7 @@ export function LoginScreen() {
             </div>
             <div className="mb-7">
               <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                Welcome to SmartBank
+                Welcome to FinCore
               </h2>
               <p className="mt-2 text-muted-foreground">
                 {branch?.name}

@@ -1,4 +1,4 @@
-import { Landmark } from 'lucide-react'
+import { Banknote } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function Logo({
@@ -22,14 +22,14 @@ export function Logo({
           box,
         )}
       >
-        <Landmark className={icon} strokeWidth={2.25} />
+        <Banknote className={icon} strokeWidth={2.25} />
       </div>
       <div className="leading-none">
         <div className={cn('font-bold tracking-tight text-foreground', title)}>
-          SmartBank
+          FinCore
         </div>
         <div className="text-xs font-medium text-muted-foreground">
-          Digital Branch Kiosk
+          Financial Intelligence Platform
         </div>
       </div>
     </div>

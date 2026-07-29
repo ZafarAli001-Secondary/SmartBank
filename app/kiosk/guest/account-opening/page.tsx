@@ -143,7 +143,7 @@ export default function AccountOpeningPage() {
             Open New Account
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-primary-foreground/80">
-            Get started with SmartBank. Choose your preferred account type and submit your details.
+            Get started with FinCore. Choose your preferred account type and submit your details.
           </p>
         </div>
       </aside>

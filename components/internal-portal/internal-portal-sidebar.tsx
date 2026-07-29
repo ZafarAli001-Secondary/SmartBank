@@ -52,7 +52,7 @@ export function InternalPortalSidebar() {
     <aside className="w-64 border-r border-border bg-card p-4 flex flex-col h-screen overflow-y-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-xl font-bold text-foreground">SmartBank</h1>
+        <h1 className="text-xl font-bold text-foreground">FinCore</h1>
         <p className="text-xs text-muted-foreground">Internal Portal</p>
       </div>
 

@@ -29,7 +29,7 @@ const GUEST_SERVICES = [
   {
     id: 'cash-deposit',
     title: 'Cash Deposit',
-    description: 'Deposit to any SmartBank account',
+    description: 'Deposit to any FinCore account',
     icon: DollarSign,
     href: '/kiosk/guest/cash-deposit',
   },

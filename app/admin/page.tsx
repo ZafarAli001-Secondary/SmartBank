@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
           </div>
           <h1 className="text-2xl font-bold text-foreground">Admin Access</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            SmartBank Branch Management System
+            FinCore Branch Management System
           </p>
         </div>
 

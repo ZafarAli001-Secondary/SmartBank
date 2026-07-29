@@ -69,7 +69,7 @@ export default function IdlePage() {
           
           {/* Bank Name */}
           <div>
-            <h1 className="text-4xl font-bold text-foreground">SmartBank</h1>
+            <h1 className="text-4xl font-bold text-foreground">FinCore</h1>
             <p className="mt-1 text-sm text-muted-foreground">Digital Branch Kiosk</p>
           </div>
 

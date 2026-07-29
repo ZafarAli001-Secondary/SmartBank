@@ -41,7 +41,7 @@ export default function EmployeeLoginPage() {
           </div>
           <h1 className="text-2xl font-bold text-foreground">Employee Access</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            SmartBank Internal Portal
+            FinCore Internal Portal
           </p>
         </div>
 

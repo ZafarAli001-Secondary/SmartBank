@@ -66,7 +66,7 @@ export default function RegisteredCustomerLoginPage() {
               Welcome Back
             </h1>
             <p className="text-lg leading-relaxed text-primary-foreground/80">
-              Access your SmartBank account securely with your account details and OTP verification.
+              Access your FinCore account securely with your account details and OTP verification.
             </p>
           </div>
 
@@ -91,7 +91,7 @@ export default function RegisteredCustomerLoginPage() {
         </div>
 
         <p className="text-sm text-primary-foreground/70">
-          Secure Authentication · SmartBank
+          Secure Authentication · FinCore
         </p>
       </aside>
 

@@ -27,7 +27,7 @@ export default function WelcomePage() {
           {/* Welcome text */}
           <div className="space-y-4">
             <h1 className="text-4xl font-bold leading-tight">
-              Welcome to SmartBank
+              Welcome to FinCore
             </h1>
             <p className="text-lg leading-relaxed text-primary-foreground/80">
               Your self-service banking kiosk for quick, secure and convenient banking services.
@@ -68,7 +68,7 @@ export default function WelcomePage() {
             <div className="space-y-4 lg:hidden">
               <Logo size="lg" />
               <h1 className="text-4xl font-bold leading-tight">
-                Welcome to SmartBank
+                Welcome to FinCore
               </h1>
               <p className="text-lg text-muted-foreground">
                 Your self-service banking kiosk
@@ -91,7 +91,7 @@ export default function WelcomePage() {
                       Registered Customer
                     </h2>
                     <p className="text-sm text-muted-foreground">
-                      Already have a SmartBank account?
+                      Already have a FinCore account?
                     </p>
                     <p className="text-sm text-muted-foreground">
                       Access your account securely using your registered details.

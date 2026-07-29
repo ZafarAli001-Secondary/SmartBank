@@ -47,7 +47,7 @@ export function CustomerPortal() {
           {/* Customer Info Card */}
           {user && <CustomerInfoCard user={user} account={primaryAccount} branch={branch} />}
 
-          <div className="grid flex-1 grid-cols-2 grid-cols-3 gap-5 auto-rows-fr min-h-0">
+          <div className="grid flex-1 grid-cols-3 gap-4 auto-rows-fr min-h-0">
             {SERVICES.filter((s) => s.type !== 'queue_token').map((service) => (
               <ServiceCard
                 key={service.type}

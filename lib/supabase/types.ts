@@ -99,3 +99,69 @@ export interface KycDocument {
   status: KycStatus
   uploaded_at: string
 }
+
+export type KioskStatus = 'online' | 'offline' | 'maintenance' | 'busy' | 'out_of_service'
+
+export type DeviceStatus = 'online' | 'offline' | 'error' | 'busy' | 'maintenance'
+
+export type DeviceType =
+  | 'document_scanner'
+  | 'receipt_printer'
+  | 'qr_scanner'
+  | 'barcode_scanner'
+  | 'webcam'
+  | 'fingerprint_scanner'
+  | 'card_reader'
+  | 'cash_acceptor'
+  | 'signature_pad'
+
+export interface Kiosk {
+  id: string
+  kiosk_id: string // e.g., "KIOSK-001"
+  kiosk_name: string // e.g., "Main Hall Kiosk"
+  branch_id: string
+  branch_name: string
+  location: string // e.g., "First Floor, Main Hall"
+  installation_date: string
+  status: KioskStatus
+  last_heartbeat: string
+  software_version: string
+  current_customer: string | null
+  queue_status: string
+  cpu_usage: number // 0-100
+  memory_usage: number // 0-100
+  storage_usage: number // 0-100
+  network_status: 'connected' | 'disconnected'
+  uptime_hours: number
+}
+
+export interface Device {
+  id: string
+  device_id: string // e.g., "DEVICE-001"
+  device_name: string
+  device_type: DeviceType
+  kiosk_id: string
+  branch_id: string
+  status: DeviceStatus
+  last_checked: string
+  firmware_version: string
+  manufacturer: string
+  model: string
+  serial_number: string
+  connection_type: 'usb' | 'network' | 'bluetooth'
+  temperature: number | null
+  last_activity: string
+  error_count: number
+  uptime_hours: number
+}
+
+export interface Alert {
+  id: string
+  kiosk_id: string | null
+  device_id: string | null
+  alert_type: string
+  message: string
+  severity: 'info' | 'warning' | 'critical'
+  created_at: string
+  resolved: boolean
+}

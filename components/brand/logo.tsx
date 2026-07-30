@@ -1,37 +1,35 @@
-import { Banknote } from 'lucide-react'
-import { cn } from '@/lib/utils'
-
-export function Logo({
-  className,
-  size = 'md',
-}: {
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
-}) {
-  const box =
-    size === 'lg' ? 'size-12' : size === 'sm' ? 'size-8' : 'size-10'
-  const icon = size === 'lg' ? 'size-6' : size === 'sm' ? 'size-4' : 'size-5'
-  const title =
-    size === 'lg' ? 'text-2xl' : size === 'sm' ? 'text-base' : 'text-xl'
-
+export function Logo() {
   return (
-    <div className={cn('flex items-center gap-3', className)}>
-      <div
-        className={cn(
-          'flex items-center justify-center rounded-lg bg-primary text-primary-foreground',
-          box,
-        )}
+    <div className="flex items-center gap-3">
+      <svg
+        width="46"
+        height="46"
+        viewBox="0 0 64 64"
+        fill="none"
+        role="img"
+        aria-label="FinCore logo"
+        className="shrink-0"
       >
-        <Banknote className={icon} strokeWidth={2.25} />
-      </div>
-      <div className="leading-none">
-        <div className={cn('font-bold tracking-tight text-foreground', title)}>
-          FinCore
-        </div>
-        <div className="text-xs font-medium text-muted-foreground">
-          Financial Intelligence Platform
-        </div>
-      </div>
+        <defs>
+          <linearGradient id="fincore-grad" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#f59f0a" />
+            <stop offset="0.5" stopColor="#ef6a1a" />
+            <stop offset="1" stopColor="#d81f26" />
+          </linearGradient>
+        </defs>
+        {/* Rounded core badge */}
+        <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#fincore-grad)" />
+        {/* Abstract "F" / core mark */}
+        <path
+          d="M24 18h18a2 2 0 0 1 0 8H30v6h10a2 2 0 0 1 0 8H30v8a2 2 0 0 1-8 0V22a4 4 0 0 1 2-4z"
+          fill="#ffffff"
+        />
+        {/* Core dot */}
+        <circle cx="45" cy="43" r="4.5" fill="#ffffff" />
+      </svg>
+      <span className="text-[26px] font-bold leading-none tracking-tight text-[#1b3a6b]">
+        Fin<span className="text-[#d81f26]">Core</span>
+      </span>
     </div>
   )
 }

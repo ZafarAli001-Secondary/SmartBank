@@ -1,151 +1,121 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { Flame, BadgeCheck, FileText, Printer, Globe, MapPin } from 'lucide-react'
 import { Logo } from '@/components/brand/logo'
-import { Clock } from '@/components/kiosk/clock'
-import { LanguageSelect } from '@/components/kiosk/language-select'
-import { AccessibilityButton } from '@/components/kiosk/accessibility-button'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { branchConfig } from '@/lib/mock/db'
-import { ArrowRight } from 'lucide-react'
+import { ServiceCard } from '@/components/kiosk/service-card'
+import { services } from '@/components/kiosk/services-data'
 
 export default function WelcomePage() {
-  const router = useRouter()
-
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background">
-      {/* Brand panel */}
-      <aside className="relative hidden w-[42%] flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
-        <Logo
-          size="lg"
-          className="[&_*]:text-primary-foreground [&>div:first-child]:bg-primary-foreground [&>div:first-child]:text-primary"
-        />
-        
-        {/* Welcome and Token Section */}
-        <div className="space-y-8">
-          {/* Welcome text */}
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold leading-tight">
-              Welcome to FinCore
-            </h1>
-            <p className="text-lg leading-relaxed text-primary-foreground/80">
-              Your self-service banking kiosk for quick, secure and convenient banking services.
-            </p>
-          </div>
+    <main className="flex h-screen flex-col overflow-hidden bg-[#eef0f2]">
+      {/* Header */}
+      <header className="flex items-center gap-6 bg-white px-6 py-3.5">
+        <Logo />
 
-          {/* Current Token Card */}
-          <div className="rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 p-6 space-y-4">
-            <p className="text-sm font-medium text-primary-foreground/80">Current Token</p>
-            <div className="space-y-3">
-              <div className="text-5xl font-bold tracking-wider text-primary-foreground">
-                A012
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-full bg-green-400 animate-pulse"></div>
-                <span className="text-sm font-medium text-green-300">Now Serving</span>
-              </div>
-            </div>
-          </div>
+        <div className="ml-2 h-14 w-px bg-gray-200" aria-hidden="true" />
+
+        <div className="flex flex-col justify-center">
+          <p className="text-lg font-bold text-gray-900">Welcome!</p>
+          <p className="text-sm text-gray-500">How can we help you today?</p>
         </div>
 
-        <p className="text-sm text-primary-foreground/70">
-          Branch: {branchConfig.name} · Kiosk #04
-        </p>
-      </aside>
+        <div className="ml-auto flex items-center gap-6">
+          <button
+            type="button"
+            className="flex items-center gap-3 rounded-lg border border-gray-200 px-4 py-2.5 text-gray-700 transition hover:bg-gray-50"
+          >
+            <Globe className="h-5 w-5 text-gray-500" />
+            <span className="text-base font-medium">English</span>
+          </button>
 
-      {/* Welcome screen */}
-      <main className="flex flex-1 flex-col">
-        <header className="flex items-center justify-end gap-3 p-5">
-          <Clock />
-          <LanguageSelect />
-          <AccessibilityButton variant="outline" />
-        </header>
+          <div className="h-12 w-px bg-gray-200" aria-hidden="true" />
 
-        <div className="flex flex-1 flex-col items-center justify-center px-6 pb-10">
-          <div className="w-full max-w-lg space-y-6">
-            {/* Mobile Header */}
-            <div className="space-y-4 lg:hidden">
-              <Logo size="lg" />
-              <h1 className="text-4xl font-bold leading-tight">
-                Welcome to FinCore
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Your self-service banking kiosk
-              </p>
-            </div>
-
-            {/* Action Cards - Stacked Vertically */}
-            <div className="space-y-4 w-full">
-              {/* Registered Customer */}
-              <Card
-                className="group relative overflow-hidden border-2 border-transparent bg-card p-6 cursor-pointer transition-all hover:border-primary hover:shadow-lg"
-                onClick={() => router.push('/kiosk/login')}
-              >
-                <div className="space-y-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <div className="text-2xl">👤</div>
-                  </div>
-                  <div className="space-y-2">
-                    <h2 className="text-xl font-bold text-foreground">
-                      Registered Customer
-                    </h2>
-                    <p className="text-sm text-muted-foreground">
-                      Already have a FinCore account?
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Access your account securely using your registered details.
-                    </p>
-                  </div>
-                  <Button
-                    className="w-full gap-2 group-hover:gap-3 transition-all"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      router.push('/kiosk/login')
-                    }}
-                  >
-                    Continue
-                    <ArrowRight className="size-4" />
-                  </Button>
-                </div>
-              </Card>
-
-              {/* Guest Services */}
-              <Card
-                className="group relative overflow-hidden border-2 border-transparent bg-card p-6 cursor-pointer transition-all hover:border-primary hover:shadow-lg"
-                onClick={() => router.push('/kiosk/guest-login')}
-              >
-                <div className="space-y-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <div className="text-2xl">👥</div>
-                  </div>
-                  <div className="space-y-2">
-                    <h2 className="text-xl font-bold text-foreground">
-                      Guest Services
-                    </h2>
-                    <p className="text-sm text-muted-foreground">
-                      Quick verification required.
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Access banking services with mobile OTP verification only.
-                    </p>
-                  </div>
-                  <Button
-                    className="w-full gap-2 group-hover:gap-3 transition-all"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      router.push('/kiosk/guest-login')
-                    }}
-                  >
-                    Continue
-                    <ArrowRight className="size-4" />
-                  </Button>
-                </div>
-              </Card>
-            </div>
+          <div className="text-right">
+            <p className="text-lg font-bold text-gray-900">10:30 AM</p>
+            <p className="text-xs text-gray-500">Friday, 24 May 2024</p>
           </div>
         </div>
-      </main>
-    </div>
+      </header>
+
+      <div className="flex min-h-0 flex-1">
+        {/* Sidebar */}
+        <nav className="flex w-64 shrink-0 flex-col justify-around bg-gradient-to-b from-[#f47b20] via-[#ea5a12] to-[#c62828] py-2">
+          {[
+            { label: 'Notice Board', Icon: BadgeCheck },
+            { label: 'Deposit Cheques', Icon: FileText },
+            { label: 'Print Passbook', Icon: Printer },
+            { label: 'Internet Banking', Icon: Globe },
+            { label: 'Locate Branch / ATM', Icon: MapPin },
+          ].map(({ label, Icon }, i) => (
+            <button
+              key={label}
+              type="button"
+              className={`flex items-center gap-4 px-6 py-4 text-left transition hover:bg-white/10 ${
+                i !== 4 ? 'border-b border-white/15' : ''
+              }`}
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+                <Icon className="h-6 w-6 text-[#ea5a12]" />
+              </span>
+              <span className="text-lg font-semibold leading-tight text-white text-balance">{label}</span>
+            </button>
+          ))}
+        </nav>
+
+        {/* Main Content */}
+        <section className="flex min-h-0 flex-1 flex-col bg-[#f3f4f6] px-6 py-4 xl:px-8">
+          <div className="mb-4 flex shrink-0 items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm">
+              <Flame className="h-5 w-5 text-[#ea5a12]" />
+            </span>
+            <h1 className="text-2xl font-bold text-gray-900">Trending Services</h1>
+          </div>
+
+          <div className="grid min-h-0 flex-1 grid-cols-3 grid-rows-4 gap-4">
+            {services.map((service) => (
+              <ServiceCard key={service.title} {...service} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Footer */}
+      <footer className="flex items-center gap-5 bg-white px-6 py-4">
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#f47b20] to-[#ea5a12] px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
+        >
+          Home
+        </button>
+
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-6 py-4 text-lg font-semibold text-gray-700 transition hover:bg-gray-50"
+        >
+          Back
+        </button>
+
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-6 py-4 text-lg font-semibold text-gray-700 transition hover:bg-gray-50"
+        >
+          Keyboard
+        </button>
+
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-6 py-4 text-lg font-semibold text-gray-700 transition hover:bg-gray-50"
+        >
+          Help
+        </button>
+
+        <button
+          type="button"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl bg-[#d32029] px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
+        >
+          Exit
+        </button>
+      </footer>
+    </main>
   )
 }

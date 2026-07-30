@@ -49,25 +49,25 @@ export function InternalPortalSidebar() {
   )
 
   return (
-    <aside className="w-64 border-r border-border bg-card p-4 flex flex-col h-screen overflow-y-auto">
+    <aside className="w-64 fincore-sidebar-gradient flex flex-col h-screen overflow-y-auto p-4 text-white">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-xl font-bold text-foreground">FinCore</h1>
-        <p className="text-xs text-muted-foreground">Internal Portal</p>
+        <h1 className="text-xl font-bold text-white">FinCore</h1>
+        <p className="text-xs text-white/80">Internal Portal</p>
       </div>
 
       {/* Employee Info */}
-      <div className="mb-6 rounded-lg bg-accent/30 p-3">
-        <p className="text-xs text-muted-foreground">Logged in as</p>
-        <p className="text-sm font-semibold text-foreground">{employee.full_name}</p>
-        <p className="text-xs text-muted-foreground capitalize">{employee.role}</p>
+      <div className="mb-6 rounded-lg bg-white/15 p-3 border border-white/20">
+        <p className="text-xs text-white/70">Logged in as</p>
+        <p className="text-sm font-semibold text-white">{employee.full_name}</p>
+        <p className="text-xs text-white/70 capitalize">{employee.role}</p>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1">
         {filteredNav.map((item) => (
           <Link key={item.id} href={item.href}>
-            <div className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors cursor-pointer">
+            <div className="fincore-sidebar-item text-white hover:bg-white/10 rounded-lg">
               {item.icon && iconMap[item.icon]}
               {item.label}
             </div>

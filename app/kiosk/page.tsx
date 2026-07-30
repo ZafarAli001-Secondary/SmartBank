@@ -7,7 +7,7 @@ import { services } from '@/components/kiosk/services-data'
 
 export default function WelcomePage() {
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-[#eef0f2]">
+    <main className="flex h-screen flex-col overflow-hidden bg-fincore-light">
       {/* Header */}
       <header className="flex items-center gap-6 bg-white px-6 py-3.5">
         <Logo />
@@ -39,7 +39,7 @@ export default function WelcomePage() {
 
       <div className="flex min-h-0 flex-1">
         {/* Sidebar */}
-        <nav className="flex w-64 shrink-0 flex-col justify-around bg-gradient-to-b from-[#f47b20] via-[#ea5a12] to-[#c62828] py-2">
+        <nav className="flex w-64 shrink-0 flex-col justify-around fincore-sidebar-gradient py-2">
           {[
             { label: 'Notice Board', Icon: BadgeCheck },
             { label: 'Deposit Cheques', Icon: FileText },
@@ -55,7 +55,7 @@ export default function WelcomePage() {
               }`}
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-                <Icon className="h-6 w-6 text-[#ea5a12]" />
+                <Icon className="h-6 w-6 fincore-primary" />
               </span>
               <span className="text-lg font-semibold leading-tight text-white text-balance">{label}</span>
             </button>
@@ -63,10 +63,10 @@ export default function WelcomePage() {
         </nav>
 
         {/* Main Content */}
-        <section className="flex min-h-0 flex-1 flex-col bg-[#f3f4f6] px-6 py-4 xl:px-8">
+        <section className="flex min-h-0 flex-1 flex-col bg-fincore-lighter px-6 py-4 xl:px-8">
           <div className="mb-4 flex shrink-0 items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm">
-              <Flame className="h-5 w-5 text-[#ea5a12]" />
+              <Flame className="h-5 w-5 fincore-primary" />
             </span>
             <h1 className="text-2xl font-bold text-gray-900">Trending Services</h1>
           </div>
@@ -83,7 +83,7 @@ export default function WelcomePage() {
       <footer className="flex items-center gap-5 bg-white px-6 py-4">
         <button
           type="button"
-          className="flex flex-1 items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#f47b20] to-[#ea5a12] px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl fincore-button-gradient px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
         >
           Home
         </button>
@@ -111,7 +111,7 @@ export default function WelcomePage() {
 
         <button
           type="button"
-          className="flex flex-1 items-center justify-center gap-3 rounded-xl bg-[#d32029] px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
+          className="flex flex-1 items-center justify-center gap-3 rounded-xl bg-fincore-accent px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:brightness-105"
         >
           Exit
         </button>

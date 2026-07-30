@@ -175,3 +175,67 @@
     font-size: 18.5px;
   }
 }
+
+/* FinCore Gradient Themes */
+@layer utilities {
+  /* Sidebar gradient: from-[#f47b20] via-[#ea5a12] to-[#c62828] */
+  .fincore-sidebar-gradient {
+    background: linear-gradient(to bottom, #f47b20, #ea5a12, #c62828);
+  }
+
+  /* Button gradient: from-[#f47b20] to-[#ea5a12] */
+  .fincore-button-gradient {
+    background: linear-gradient(to right, #f47b20, #ea5a12);
+  }
+
+  /* Primary brand color */
+  .fincore-primary {
+    color: #ea5a12;
+  }
+
+  .bg-fincore-primary {
+    background-color: #ea5a12;
+  }
+
+  /* Secondary red accent */
+  .fincore-accent {
+    color: #d32029;
+  }
+
+  .bg-fincore-accent {
+    background-color: #d32029;
+  }
+
+  /* Background colors */
+  .bg-fincore-light {
+    background-color: #eef0f2;
+  }
+
+  .bg-fincore-lighter {
+    background-color: #f3f4f6;
+  }
+
+  /* Text colors */
+  .text-fincore-gray {
+    color: #1f2937;
+  }
+
+  .text-fincore-gray-light {
+    color: #6b7280;
+  }
+
+  /* Icon backgrounds */
+  .bg-fincore-icon {
+    background-color: #f0f0f0;
+  }
+
+  /* Sidebar item hover effect */
+  .fincore-sidebar-item {
+    @apply flex items-center gap-4 px-6 py-4 text-left transition hover:bg-white/10;
+  }
+
+  /* Service card hover effect */
+  .fincore-service-card {
+    @apply rounded-2xl bg-white p-4 text-left shadow-sm ring-1 ring-gray-100 transition hover:shadow-md hover:ring-[#ea5a12]/30;
+  }
+}
